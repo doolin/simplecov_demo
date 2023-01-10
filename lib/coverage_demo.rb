@@ -31,4 +31,13 @@ class CoverageDemo
   end
 
   def endless = foo && bar ? 0 : 1
+
+  def quuxinator(quux)
+    if foo && quux.foo
+      return 'foo'
+    elsif quux.baz
+      return 'bar'
+
+    end
+  end
 end

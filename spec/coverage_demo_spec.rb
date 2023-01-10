@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 # Specs for simplecov demo
 
+require 'ostruct'
 require './lib/coverage_demo'
 
 RSpec.describe CoverageDemo do
@@ -47,6 +48,17 @@ RSpec.describe CoverageDemo do
         # binding.irb
         expect(cd.endless).to be 0
       end
+    end
+  end
+
+  describe '#quuxinator' do
+    it 'quuxes' do
+      foo = false
+      bar = true
+      cd = CoverageDemo.new(foo, bar)
+      # binding.irb
+      result = cd.quuxinator(quux)
+      expect(result).to be 'foo'
     end
   end
 end
