@@ -32,12 +32,14 @@ class CoverageDemo
 
   def endless = foo && bar ? 0 : 1
 
+  # This doesn't work the way I want with & operator.
+  # Need to set quux to nil, or set up an example like
+  # baz = nil, baz.foo
   def quuxinator(quux)
     if foo && quux.foo
-      return 'foo'
+      'foo'
     elsif quux.baz
-      return 'bar'
-
+      'bar'
     end
   end
 end

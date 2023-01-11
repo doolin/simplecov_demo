@@ -1,31 +1,39 @@
 # frozen_string_literal: true
+
 # Specs for simplecov demo
 
 require 'ostruct'
 require './lib/coverage_demo'
 
 RSpec.describe CoverageDemo do
+  subject(:cd) { described_class.new(foo, bar) }
+
   let(:foo) { false }
   let(:bar) { nil }
-  let(:quux) { OpenStruct.new(foo: 'foo', bar: 'bar') }
-
-  subject(:cd) { CoverageDemo.new(foo, bar) }
+  let(:quux) do
+    Class.new do
+      attr_accessor :foo, :bar
+    end.new do |c|
+      c.foo = 'foo'
+      c.bar = 'bar'
+    end
+  end
 
   example 'do something' do
-    expect(cd).to_not be nil
+    expect(cd).not_to be_nil
   end
 
   describe '#if_coverage_only' do
     xcontext 'when "foo" is true' do
       it 'covers positive case' do
-        cd = CoverageDemo.new(true)
+        cd = described_class.new(true)
         expect(cd.if_coverage_only).to be true
       end
     end
 
     context 'when "foo" is false' do
       it 'covers positive case' do
-        cd = CoverageDemo.new(false)
+        cd = described_class.new(false)
         expect(cd.if_coverage_only).to be false
       end
     end
@@ -44,7 +52,7 @@ RSpec.describe CoverageDemo do
       it 'returns 0' do
         foo = true
         bar = true
-        cd = CoverageDemo.new(foo, bar)
+        cd = described_class.new(foo, bar)
         # binding.irb
         expect(cd.endless).to be 0
       end
@@ -55,7 +63,7 @@ RSpec.describe CoverageDemo do
     it 'quuxes' do
       foo = false
       bar = true
-      cd = CoverageDemo.new(foo, bar)
+      cd = described_class.new(foo, bar)
       # binding.irb
       result = cd.quuxinator(quux)
       expect(result).to be 'foo'
