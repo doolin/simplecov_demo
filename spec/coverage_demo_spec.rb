@@ -12,8 +12,8 @@ RSpec.describe CoverageDemo do
   let(:bar) { nil }
   let(:quux) do
     Class.new do
-      attr_accessor :foo, :bar
-    end.new do |c|
+      attr_accessor :foo, :bar, :baz
+    end.new.tap do |c|
       c.foo = 'foo'
       c.bar = 'bar'
     end
@@ -66,7 +66,7 @@ RSpec.describe CoverageDemo do
       cd = described_class.new(foo, bar)
       # binding.irb
       result = cd.quuxinator(quux)
-      expect(result).to be 'foo'
+      expect(result).to be 'bar'
     end
   end
 end
