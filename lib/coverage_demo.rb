@@ -36,12 +36,12 @@ class CoverageDemo
   # Need to set quux to nil, or set up an example like
   # baz = nil, baz.foo
   def quuxinator(quux)
-    binding.irb
+    # binding.irb
     # Part of the problem here is that the comparision is between
     # foo boolean and quux.foo string.
     if foo && quux.foo
       'foo'
-    elsif quux.baz
+    elsif quux.bar
       'bar'
     end
   end

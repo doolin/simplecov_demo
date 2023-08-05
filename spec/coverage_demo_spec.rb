@@ -5,6 +5,8 @@
 require 'ostruct'
 require './lib/coverage_demo'
 
+# file:///Users/daviddoolin/src/simplecov_demo/coverage/index.html#_AllFiles
+
 RSpec.describe CoverageDemo do
   subject(:cd) { described_class.new(foo, bar) }
 
@@ -19,12 +21,8 @@ RSpec.describe CoverageDemo do
     end
   end
 
-  example 'do something' do
-    expect(cd).not_to be_nil
-  end
-
   describe '#if_coverage_only' do
-    xcontext 'when "foo" is true' do
+    context 'when "foo" is true' do
       it 'covers positive case' do
         cd = described_class.new(true)
         expect(cd.if_coverage_only).to be true
@@ -39,22 +37,68 @@ RSpec.describe CoverageDemo do
     end
   end
 
+  # This spec finds both line and branch coverage, even when
+  # only one case is tested. It doesn't matter which case, true
+  # or false is tested. However, note that testing one case results
+  # in the coverage report showing 1 hit on the ternary line. When
+  # both cases are tested, then the coverage report will show 2 hits
+  # on the ternary line.
   describe '#foo_ternary' do
-    # This spec finds both line and branch coverage, even though
-    # only the false case is tested.
-    it 'returns true' do
-      expect(cd.foo_ternary).to be false
+    context 'when "foo" is false' do
+      it 'returns false' do
+        expect(cd.foo_ternary).to be false
+      end
+    end
+
+    context 'when "foo" is true' do
+      let(:foo) { true }
+
+      it 'returns true' do
+        expect(cd.foo_ternary).to be true
+      end
     end
   end
 
   describe '#foo_and_bar' do
-    context 'true case' do
+    context 'when true' do
       it 'returns 0' do
         foo = true
         bar = true
         cd = described_class.new(foo, bar)
-        # binding.irb
+
+        expect(cd.foo_and_bar).to be 0
+      end
+    end
+
+    context 'when false' do
+      it 'returns 1' do
+        foo = false
+        bar = true
+        cd = described_class.new(foo, bar)
+
+        expect(cd.foo_and_bar).to be 1
+      end
+    end
+  end
+
+  describe '#endless' do
+    context 'when true' do
+      it 'returns 0' do
+        foo = true
+        bar = true
+        cd = described_class.new(foo, bar)
+
         expect(cd.endless).to be 0
+      end
+    end
+
+    context 'when false' do
+      it 'returns 1' do
+        foo = false
+        bar = true
+        cd = described_class.new(foo, bar)
+
+        expect(cd.endless).to be 1
       end
     end
   end
