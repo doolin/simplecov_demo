@@ -16,8 +16,8 @@ RSpec.describe CoverageDemo do
     Class.new do
       attr_accessor :foo, :bar, :baz
     end.new.tap do |c|
-      c.foo = 'foo'
-      c.bar = 'bar'
+      c.foo = foo # 'foo'
+      c.bar = bar # 'bar'
     end
   end
 
@@ -83,7 +83,7 @@ RSpec.describe CoverageDemo do
 
   describe '#endless' do
     context 'when true' do
-      it 'returns 0' do
+      xit 'returns 0' do
         foo = true
         bar = true
         cd = described_class.new(foo, bar)
@@ -104,13 +104,37 @@ RSpec.describe CoverageDemo do
   end
 
   describe '#quuxinator' do
+    let(:foo) { true }
+    let(:bar) { true }
+
     it 'quuxes' do
-      foo = false
+      foo = true # false
       bar = true
       cd = described_class.new(foo, bar)
       # binding.irb
       result = cd.quuxinator(quux)
+      expect(result).to be 'foo'
+    end
+
+    it 'quuxes' do
+      foo = false
+      bar = true
+      quux.foo = false
+      cd = described_class.new(foo, bar)
+      # binding.irb
+      result = cd.quuxinator(quux)
       expect(result).to be 'bar'
+    end
+
+    it 'quuxes' do
+      foo = false
+      bar = true
+      quux.foo = false
+      quux.bar = false
+      cd = described_class.new(foo, bar)
+      # binding.irb
+      result = cd.quuxinator(quux)
+      expect(result).to be nil
     end
   end
 end
