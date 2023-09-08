@@ -83,7 +83,7 @@ RSpec.describe CoverageDemo do
 
   describe '#endless' do
     context 'when true' do
-      xit 'returns 0' do
+      it 'returns 0' do
         foo = true
         bar = true
         cd = described_class.new(foo, bar)
@@ -93,7 +93,7 @@ RSpec.describe CoverageDemo do
     end
 
     context 'when false' do
-      it 'returns 1' do
+      xit 'returns 1' do
         foo = false
         bar = true
         cd = described_class.new(foo, bar)

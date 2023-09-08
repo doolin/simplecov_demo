@@ -2,6 +2,7 @@
 
 # SimpleCov demo
 
+# file:///Users/daviddoolin/src/simplecov_demo/coverage/index.html#_AllFiles
 # An example class for demonstrating how SimpleCov
 # reports branch and line coverage.
 class CoverageDemo
